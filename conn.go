@@ -773,6 +773,16 @@ func (c *Conn) WriteMessage(messageType int, data []byte) error {
 	return w.Close()
 }
 
+func (c *Conn)SendMsg(SubMsg *struct)error{
+	sub, err := json.Marshal(subMsg)
+	if err != nil {
+		return err
+	}
+	ws.WriteMessage(websocket.TextMessage, []byte(sub))
+	return nil
+	
+}
+
 // SetWriteDeadline sets the write deadline on the underlying network
 // connection. After a write has timed out, the websocket state is corrupt and
 // all future writes will return an error. A zero value for t means writes will
